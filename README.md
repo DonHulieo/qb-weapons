@@ -10,7 +10,7 @@ Weapon Logic Script For QB-Core
     # DonHulieo
     
     - Attachments now get damaged when weapon is shot.
-    - Quality is constant, great for inventorie systems with decay.
+    - Quality is constant, great for inventory systems with decay.
     - Weapons will stop working until the broken attachment is removed.
     
     # BrianxTU
