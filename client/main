@@ -136,6 +136,24 @@ end)
 
 CreateThread(function()
     while true do
+        Wait(100)
+        
+        local playerPed = PlayerPedId()
+        local weaponsConfig = Config.WeaponsDamage[GetSelectedPedWeapon(playerPed)]
+        
+        if weaponsConfig then
+            if weaponsConfig.disableCriticalHits then
+                SetPedSuffersCriticalHits(playerPed, false)
+            end
+            N_0x4757f00bc6323cfe(weaponsConfig.model, weaponsConfig.modifier)
+        else
+            Wait(500)
+        end
+    end
+end)
+
+CreateThread(function()
+    while true do
         local ped = PlayerPedId()
         if IsPedArmed(ped, 7) == 1 and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
             local weapon = GetSelectedPedWeapon(ped)
