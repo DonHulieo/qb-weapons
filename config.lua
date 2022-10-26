@@ -137,6 +137,30 @@ Config.DurabilityMultiplier = {
 	['weapon_hazardcan'] 			= 0.15,
     ['weapon_fertilizercan'] 		= 0.15,
 
+    -- Custom Weapons
+    ['weapon_ak47'] 		    	= 0.15,
+    ['weapon_de'] 	                = 0.15,
+    ['weapon_fnx45'] 		    	= 0.15,
+    ['weapon_glock17'] 		        = 0.15,
+    ['weapon_m4'] 			        = 0.15,
+    ['weapon_hk416'] 		    	= 0.15,
+    ['weapon_mk14'] 		    	= 0.15,
+    ['weapon_m110'] 		    	= 0.15,
+    ['weapon_huntingrifle']         = 0.20,
+    ['weapon_ar15'] 		    	= 0.15,
+    ['weapon_m9'] 	                = 0.15,
+    ['weapon_m70'] 		    	    = 0.15,
+    ['weapon_m1911'] 		        = 0.15,
+    ['weapon_mac10'] 		    	= 0.15,
+    ['weapon_uzi'] 	                = 0.15,
+    ['weapon_mp9'] 	                = 0.15,
+    ['weapon_mossberg'] 		    = 0.15,
+    ['weapon_remington'] 		    = 0.15,
+    ['weapon_scarh'] 		    	= 0.15,
+    ['weapon_shiv'] 	            = 0.15,
+    ['weapon_katana'] 	            = 0.15,
+    ['weapon_sledgehammer'] 	    = 0.15,
+
     -- Attachments
     ['pistol_defaultclip']          = 0.15,
     ['pistol_extendedclip']         = 0.15,
@@ -284,21 +308,64 @@ Config.WeaponsDamage = {
     [`WEAPON_COMBATPDW`] = {model = `WEAPON_COMBATPDW`, modifier = 0.1, disableCriticalHits = true},
 }
 
-Config.WeaponRepairPoints = {
+Config.RepairPoints = {
     [1] = {
-        coords = vector3(964.02, -1267.41, 34.97),
+        coords = vector4(11.17, -1098.84, 29.8, 156.87),
+        type = "public", --public, job, gang, private
+        --jobs = { ["police"] = 0 },
+        --gangs = { ["ammu"] = 0, ["rrmc"] = 0 }, 
+        --citizenids = {["JFD98238"] = true, ["HJS29340"] = true},
+        repairCosts = {
+            ["pistol"] = {cost = 2000, time = math.random(1,5)},
+            ["smg"] = {cost = 4000, time = math.random(1,5)},
+            ["mg"] = {cost = 6000, time = math.random(1,5)},
+            ["shotgun"] = {cost = 6000, time = math.random(1,5)},
+            ["rifle"] = {cost = 5000, time = math.random(1,5)},
+            ["sniper"] = {cost = 7000, time = math.random(1,5)},
+        },
+        tableTimeout = false, -- Set to false if you don't want to use the table timeout. Time is in minutes
         IsRepairing = false,
         RepairingData = {},
-    }
-}
-
-Config.WeaponRepairCosts = {
-    ["pistol"] = 1000,
-    ["smg"] = 3000,
-    ["mg"] = 4000,
-    ["rifle"] = 5000,
-    ["sniper"] = 7000,
-    ["shotgun"] = 6000
+        debug = false
+    },
+    [2] = {
+        coords = vector4(14.13, -1099.94, 29.8, 160.38),
+        type = "public", --public, job, gang, private
+        --jobs = { ["police"] = 0 },
+        --gangs = { ["ammu"] = 0, ["rrmc"] = 0 }, 
+        --citizenids = {["JFD98238"] = true, ["HJS29340"] = true},
+        repairCosts = {
+            ["pistol"] = {cost = 2000, time = math.random(1,5)},
+            ["smg"] = {cost = 4000, time = math.random(1,5)},
+            ["mg"] = {cost = 6000, time = math.random(1,5)},
+            ["shotgun"] = {cost = 6000, time = math.random(1,5)},
+            ["rifle"] = {cost = 5000, time = math.random(1,5)},
+            ["sniper"] = {cost = 7000, time = math.random(1,5)},
+        },
+        tableTimeout = 10, -- Set to false if you don't want to use the table timeout. Time is in minutes
+        IsRepairing = false,
+        RepairingData = {},
+        debug = false
+    },
+    [3] = {
+        coords = vector4(17.15, -1101.04, 29.8, 159.48),
+        type = "public", --public, job, gang, private
+        --jobs = { ["police"] = 0 },
+        --gangs = { ["ammu"] = 0, ["rrmc"] = 0 }, 
+        --citizenids = {["JFD98238"] = true, ["HJS29340"] = true},
+        repairCosts = {
+            ["pistol"] = {cost = 2000, time = math.random(1,3)},
+            ["smg"] = {cost = 4000, time = math.random(1,3)},
+            ["mg"] = {cost = 6000, time = math.random(1,3)},
+            ["shotgun"] = {cost = 6000, time = math.random(1,3)},
+            ["rifle"] = {cost = 5000, time = math.random(1,3)},
+            ["sniper"] = {cost = 7000, time = math.random(1,3)},
+        },
+        tableTimeout = 10, -- Set to false if you don't want to use the table timeout. Time is in minutes
+        IsRepairing = false,
+        RepairingData = {},
+        debug = false
+    },
 }
 
 WeaponAttachments = {
@@ -327,6 +394,160 @@ WeaponAttachments = {
             item = 'pistol_luxuryfinish',
         },
     },
+    ['WEAPON_M9'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_M9_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_M9_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_PI_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_M1911'] = {
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_PI_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_DE'] = {
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_PI_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_FNX45'] = {
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_PI_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_MP9'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MP9_CLIP_01',
+            item = 'microsmg_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_MP9_CLIP_02',
+            item = 'microsmg_extendedclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+        ['scope'] = {
+            component = 'COMPONENT_AT_SCOPE_MACRO',
+            item = 'microsmg_scope',
+        },
+    },
+    ['WEAPON_UZI'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MICROSMG_CLIP_01',
+            item = 'microsmg_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_MICROSMG_CLIP_02',
+            item = 'microsmg_extendedclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_MAC10'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MICROSMG_CLIP_01',
+            item = 'microsmg_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_MICROSMG_CLIP_02',
+            item = 'microsmg_extendedclip',
+            type = 'clip',
+        },
+        ['flashlight'] = {
+            component = 'COMPONENT_AT_PI_FLSH',
+            item = 'pistol_flashlight',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP_02',
+            item = 'pistol_suppressor',
+        },
+    },
+    ['WEAPON_AK47'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_AK47_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_AK47_CLIP_02',
+            item = 'assaultrifle_extendedclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP_02',
+            item = 'rifle_suppressor',
+        },
+    },
+    ['WEAPON_M70'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_M70_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP_02',
+            item = 'rifle_suppressor',
+        },
+    },
+    ['WEAPON_M110'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_M110_CLIP_01',
+            item = 'marksmanrifle_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_M110_CLIP_02',
+            item = 'marksmanrifle_extendedclip',
+            type = 'clip',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP',
+            item = 'rifle_suppressor',
+        },
+    },
+    ['WEAPON_HK416'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_HK416_CLIP_01',
+            item = 'carbinerifle_defaultclip',
+            type = 'clip',
+        },
+        ['extendedclip'] = {
+            component = 'COMPONENT_HK416_CLIP_02',
+            item = 'carbinerifle_extendedclip',
+            type = 'clip',
+        },
+        ['flashlight'] = {
+            component = 'COMPONENT_AT_AR_FLSH',
+            item = 'rifle_flashlight',
+        },
+        ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP',
+            item = 'rifle_suppressor',
+        },
+    },
+
     ['WEAPON_COMBATPISTOL'] = {
         ['defaultclip'] = {
             component = 'COMPONENT_COMBATPISTOL_CLIP_01',
