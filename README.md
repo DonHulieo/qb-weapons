@@ -6,17 +6,17 @@ Weapon Logic Script For QB-Core
 - [BrianxTu](https://github.com/BrianxTu/qb-weapons) For their fork of qb-weapons with qb-target and table type.
 - [Official-X3R0](https://github.com/Official-X3R0/qb-weapons) For their fork of qb-weapons with damage configuration.
 
-# Update:
-    **DonHulieo**
+# Updates:
+    # DonHulieo
     - Attachments now get damaged when weapon is shot.
     - Quality is constant, great for inventorie systems with decay.
     - Weapons will stop working until the broken attachment is removed.
-    **BrianxTU**
+    # BrianxTU
     - QB-Target interaction setup by vector4.
     - Individual table pricing, time and "ownership" timeout. Finders Keepers am I right?
     - Table types i.e. public, private, job, gang.
     - Table timeout is still restricted to the table type. If you don't want to use it, I added an option to put "false" into the field.
-    **Official-X3R0**
+    # Official-X3R0
     - Weapon Damages can be configured, and "one-shot" headshots disabled or enabled.
     - Quality is constant, great for inventorie systems with decay.
     - Weapons will stop working until the broken attachment is removed.
