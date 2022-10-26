@@ -21,8 +21,6 @@ Weapon Logic Script For QB-Core
     
     # Official-X3R0
     - Weapon Damages can be configured, and "one-shot" headshots disabled or enabled.
-    - Quality is constant, great for inventorie systems with decay.
-    - Weapons will stop working until the broken attachment is removed.
 
 # Dependencies
 - [qb-core](https://github.com/qbcore-framework/qb-core)
