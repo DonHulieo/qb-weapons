@@ -137,30 +137,6 @@ Config.DurabilityMultiplier = {
 	['weapon_hazardcan'] 			= 0.15,
     ['weapon_fertilizercan'] 		= 0.15,
 
-    -- Custom Weapons
-    ['weapon_ak47'] 		    	= 0.15,
-    ['weapon_de'] 	                = 0.15,
-    ['weapon_fnx45'] 		    	= 0.15,
-    ['weapon_glock17'] 		        = 0.15,
-    ['weapon_m4'] 			        = 0.15,
-    ['weapon_hk416'] 		    	= 0.15,
-    ['weapon_mk14'] 		    	= 0.15,
-    ['weapon_m110'] 		    	= 0.15,
-    ['weapon_huntingrifle']         = 0.20,
-    ['weapon_ar15'] 		    	= 0.15,
-    ['weapon_m9'] 	                = 0.15,
-    ['weapon_m70'] 		    	    = 0.15,
-    ['weapon_m1911'] 		        = 0.15,
-    ['weapon_mac10'] 		    	= 0.15,
-    ['weapon_uzi'] 	                = 0.15,
-    ['weapon_mp9'] 	                = 0.15,
-    ['weapon_mossberg'] 		    = 0.15,
-    ['weapon_remington'] 		    = 0.15,
-    ['weapon_scarh'] 		    	= 0.15,
-    ['weapon_shiv'] 	            = 0.15,
-    ['weapon_katana'] 	            = 0.15,
-    ['weapon_sledgehammer'] 	    = 0.15,
-
     -- Attachments
     ['pistol_defaultclip']          = 0.15,
     ['pistol_extendedclip']         = 0.15,
@@ -260,6 +236,54 @@ Config.DurabilityMultiplier = {
     ['marksmanrifle_luxuryfinish']  = 0.15,
 }
 
+-- Weapons Damage; modifier = 1.0 is default. Go below 1.0 and the damage will be reduced, go above 1.0 and damage will become higher.
+-- Set disableCriticalHits to true to disable. Set it to false to enable.
+
+Config.WeaponsDamage = {
+    [`WEAPON_UNARMED`] = {model = `WEAPON_UNARMED`, modifier = 0.2, disableCriticalHits = true},
+    [`WEAPON_NIGHTSTICK`] = {model = `WEAPON_NIGHTSTICK`, modifier = 0.1, disableCriticalHitsHits = true},
+    [`WEAPON_FLASHLIGHT`] = {model = `WEAPON_NIGHTSTICK`, modifier = 0.1, disableCriticalHits = true},
+
+    [`WEAPON_KNIFE`] = {model = `WEAPON_KNIFE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_KNUCKLE`] = {model = `WEAPON_KNUCKLE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_NIGHTSTICK`] = {model = `WEAPON_NIGHTSTICK`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_HAMMER`] = {model = `WEAPON_HAMMER`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_BAT`] = {model = `WEAPON_BAT`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_GOLFCLUB`] = {model = `WEAPON_GOLFCLUB`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_CROWBAR`] = {model = `WEAPON_CROWBAR`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_BOTTLE`] = {model = `WEAPON_BOTTLE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_DAGGER`] = {model = `WEAPON_DAGGER`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_HATCHET`] = {model = `WEAPON_HATCHET`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MACHETE`] = {model = `WEAPON_MACHETE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_SWITCHBLADE`] = {model = `WEAPON_SWITCHBLADE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_PROXMINE`] = {model = `WEAPON_PROXMINE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_BZGAS`] = {model = `WEAPON_BZGAS`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_SMOKEGRENADE`] = {model = `WEAPON_SMOKEGRENADE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MOLOTOV`] = {model = `WEAPON_MOLOTOV`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_REVOLVER`] = {model = `WEAPON_REVOLVER`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_POOLCUE`] = {model = `WEAPON_POOLCUE`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_PIPEWRENCH`] = {model = `WEAPON_PIPEWRENCH`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_PISTOL`] = {model = `WEAPON_PISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_PISTOL_MK2`] = {model = `WEAPON_PISTOL_MK2`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_COMBATPISTOL`] = {model = `WEAPON_COMBATPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_APPISTOL`] = {model = `WEAPON_APPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_PISTOL50`] = {model = `WEAPON_PISTOL50`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_SNSPISTOL`] = {model = `WEAPON_SNSPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_HEAVYPISTOL`] = {model = `WEAPON_HEAVYPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_VINTAGEPISTOL`] = {model = `WEAPON_VINTAGEPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_FLAREGUN`] = {model = `WEAPON_FLAREGUN`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MARKSMANPISTOL`] = {model = `WEAPON_MARKSMANPISTOL`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MICROSMG`] = {model = `WEAPON_MICROSMG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MINISMG`] = {model = `WEAPON_MINISMG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_SMG`] = {model = `WEAPON_SMG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_SMG_MK2`] = {model = `WEAPON_SMG_MK2`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_ASSAULTSMG`] = {model = `WEAPON_ASSAULTSMG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_MG`] = {model = `WEAPON_MG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_COMBATMG`] = {model = `WEAPON_COMBATMG`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_COMBATMG_MK2`] = {model = `WEAPON_COMBATMG_MK2`, modifier = 0.1, disableCriticalHits = true},
+    [`WEAPON_COMBATPDW`] = {model = `WEAPON_COMBATPDW`, modifier = 0.1, disableCriticalHits = true},
+}
+
 Config.WeaponRepairPoints = {
     [1] = {
         coords = vector3(964.02, -1267.41, 34.97),
@@ -303,160 +327,6 @@ WeaponAttachments = {
             item = 'pistol_luxuryfinish',
         },
     },
-    ['WEAPON_M9'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_M9_CLIP_01',
-            item = 'pistol_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_M9_CLIP_02',
-            item = 'pistol_extendedclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_PI_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_M1911'] = {
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_PI_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_DE'] = {
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_PI_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_FNX45'] = {
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_PI_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_MP9'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_MP9_CLIP_01',
-            item = 'microsmg_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_MP9_CLIP_02',
-            item = 'microsmg_extendedclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-        ['scope'] = {
-            component = 'COMPONENT_AT_SCOPE_MACRO',
-            item = 'microsmg_scope',
-        },
-    },
-    ['WEAPON_UZI'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_MICROSMG_CLIP_01',
-            item = 'microsmg_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_MICROSMG_CLIP_02',
-            item = 'microsmg_extendedclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_MAC10'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_MICROSMG_CLIP_01',
-            item = 'microsmg_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_MICROSMG_CLIP_02',
-            item = 'microsmg_extendedclip',
-            type = 'clip',
-        },
-        ['flashlight'] = {
-            component = 'COMPONENT_AT_PI_FLSH',
-            item = 'pistol_flashlight',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP_02',
-            item = 'pistol_suppressor',
-        },
-    },
-    ['WEAPON_AK47'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_AK47_CLIP_01',
-            item = 'assaultrifle_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_AK47_CLIP_02',
-            item = 'assaultrifle_extendedclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP_02',
-            item = 'rifle_suppressor',
-        },
-    },
-    ['WEAPON_M70'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_M70_CLIP_01',
-            item = 'assaultrifle_defaultclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP_02',
-            item = 'rifle_suppressor',
-        },
-    },
-    ['WEAPON_M110'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_M110_CLIP_01',
-            item = 'marksmanrifle_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_M110_CLIP_02',
-            item = 'marksmanrifle_extendedclip',
-            type = 'clip',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP',
-            item = 'rifle_suppressor',
-        },
-    },
-    ['WEAPON_HK416'] = {
-        ['defaultclip'] = {
-            component = 'COMPONENT_HK416_CLIP_01',
-            item = 'carbinerifle_defaultclip',
-            type = 'clip',
-        },
-        ['extendedclip'] = {
-            component = 'COMPONENT_HK416_CLIP_02',
-            item = 'carbinerifle_extendedclip',
-            type = 'clip',
-        },
-        ['flashlight'] = {
-            component = 'COMPONENT_AT_AR_FLSH',
-            item = 'rifle_flashlight',
-        },
-        ['suppressor'] = {
-            component = 'COMPONENT_AT_AR_SUPP',
-            item = 'rifle_suppressor',
-        },
-    },
-
     ['WEAPON_COMBATPISTOL'] = {
         ['defaultclip'] = {
             component = 'COMPONENT_COMBATPISTOL_CLIP_01',
