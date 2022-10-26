@@ -7,8 +7,8 @@ Weapon Logic Script For QB-Core
 - [Official-X3R0](https://github.com/Official-X3R0/qb-weapons) For their fork of qb-weapons with damage configuration.
 
 # Updates:
+
     # DonHulieo
-    
     - Attachments now get damaged when weapon is shot.
     - Quality is constant, great for inventory systems with decay.
     - Weapons will stop working until the broken attachment is removed.
