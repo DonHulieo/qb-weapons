@@ -9,7 +9,8 @@ Weapon Logic Script For QB-Core
 # Updates:
 
     # DonHulieo
-    - Weapons jam based on durability.
+    - Aim styles based on gang or job.
+    - Weapons jam based on durability and chance.
     - Attachments now get damaged when weapon is shot.
     - Quality is constant, great for inventory systems with decay.
     - Weapons will stop working until the broken attachment is removed.
