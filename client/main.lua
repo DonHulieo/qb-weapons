@@ -158,7 +158,19 @@ function JamWeapon()
     local PlayerData = QBCore.Functions.GetPlayerData()
     local WeaponSlot = PlayerData.items[CurrentWeaponData.slot]
     if WeaponSlot.info.quality <= Config.maxDurabilityToJam then
-        local jamChance = math.random(0, 100)
+        local jamChance = math.random(0, 250)
+        if jamChance <= Config.jamChance then
+            local weapon = GetSelectedPedWeapon(ped)
+            local ammo = GetAmmoInPedWeapon(ped, weapon)
+            if ammo ~= 0 and ammo - ammo == 0 then
+                AddAmmoToPed(ped, weapon, -ammo)
+                gunJammed = true
+                oldAmmoAmount = ammo
+                QBCore.Functions.Notify('You\'re weapon jammed..', 'error', 3500)
+            end
+        end
+    elseif WeaponSlot.info.quality <= Config.medDurabilityToJam then
+        local jamChance = math.random(0, 125)
         if jamChance <= Config.jamChance then
             local weapon = GetSelectedPedWeapon(ped)
             local ammo = GetAmmoInPedWeapon(ped, weapon)
