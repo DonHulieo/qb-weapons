@@ -6,6 +6,9 @@ Weapon Logic Script For QB-Core
 - [BrianxTu](https://github.com/BrianxTu/qb-weapons) For their fork of qb-weapons with qb-target and table type.
 - [Official-X3R0](https://github.com/Official-X3R0/qb-weapons) For their fork of qb-weapons with damage configuration.
 
+# Previews
+- [Gun Jamming](https://streamable.com/kses1d)
+
 # Updates:
 
     # DonHulieo
