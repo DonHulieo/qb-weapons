@@ -1,7 +1,7 @@
 -- Variables
 local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerData = QBCore.Functions.GetPlayerData()
-local CurrentWeaponData, CanShoot, MultiplierAmount = {}, true, 0
+local CurrentWeaponData, CanShoot, gunJammed, MultiplierAmount, oldAmmoAmount = {}, true, false, 0, 0
 
 -- Handlers
 
@@ -72,7 +72,7 @@ RegisterNetEvent('weapons:client:AddAmmo', function(type, amount, itemData)
                     disableCombat = true,
                 }, {}, {}, {}, function() -- Done
                     if QBCore.Shared.Weapons[weapon] then
-                        AddAmmoToPed(ped,weapon,amount)
+                        AddAmmoToPed(ped, weapon, amount)
                         MakePedReload(ped)
                         TriggerServerEvent("weapons:server:UpdateWeaponAmmo", CurrentWeaponData, total + amount)
                         TriggerServerEvent('weapons:server:removeWeaponAmmoItem', itemData)
@@ -111,6 +111,87 @@ RegisterNetEvent("weapons:client:EquipAttachment", function(ItemData, attachment
     end
 end)
 
+RegisterNetEvent("weapon:startRepair", function(data)
+    if CurrentWeaponData and next(CurrentWeaponData) then
+        local WeaponData = QBCore.Shared.Weapons[GetHashKey(CurrentWeaponData.name)]
+        local WeaponClass = (QBCore.Shared.SplitStr(WeaponData.ammotype, "_")[2]):lower()
+        TriggerEvent('QBCore:Notify', Lang:t('info.repair_weapon_price', { value = Config.RepairPoints[data.id].repairCosts[WeaponClass].cost}), "primary", 1500)
+        QBCore.Functions.TriggerCallback('weapons:server:RepairWeapon', function(HasMoney)
+            if HasMoney then
+                TriggerEvent('QBCore:Notify', Lang:t('info.weapon_repair_started'), "success", 1500)
+                CurrentWeaponData = {}
+            else
+                TriggerEvent('QBCore:Notify', Lang:t('info.not_enough_cash'), "error", 1500)
+            end
+        end, data.id, CurrentWeaponData)
+    else
+        if Config.RepairPoints[data.id].RepairingData.CitizenId == nil then
+            TriggerEvent('QBCore:Notify', Lang:t('error.no_weapon_in_hand'), "error", 1500)
+        end
+    end
+end)
+
+RegisterNetEvent("weapon:completeRepair", function(data)
+    if CurrentWeaponData and next(CurrentWeaponData) then
+        if Config.RepairPoints[data.id].RepairingData.CitizenId ~= PlayerData.citizenid then
+            TriggerEvent('QBCore:Notify', Lang:t('info.repairshop_not_usable'), "error", 1500)
+        else
+            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_back'), "success", 1500)
+            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
+        end
+    else
+        if Config.RepairPoints[data.id].RepairingData.CitizenId == PlayerData.citizenid then
+            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_back'), "success", 1500)
+            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
+        end
+        if Config.RepairPoints[data.id].RepairingData.CitizenId == nil then
+            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_nil'), "success", 1500)
+            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
+        end
+    end
+end)
+
+-- Functions
+
+function JamWeapon()
+    local ped = PlayerPedId()
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    local WeaponSlot = PlayerData.items[CurrentWeaponData.slot]
+    if WeaponSlot.info.quality <= Config.maxDurabilityToJam then
+        local jamChance = math.random(0, 100)
+        if jamChance <= Config.jamChance then
+            local weapon = GetSelectedPedWeapon(ped)
+            local ammo = GetAmmoInPedWeapon(ped, weapon)
+            if ammo ~= 0 and ammo - ammo == 0 then
+                AddAmmoToPed(ped, weapon, -ammo)
+                gunJammed = true
+                oldAmmoAmount = ammo
+                QBCore.Functions.Notify('You\'re weapon jammed..', 'error', 3500)
+            end
+        end
+    elseif WeaponSlot.info.quality <= Config.minDurabilityToJam then
+        local weapon = GetSelectedPedWeapon(ped)
+        local ammo = GetAmmoInPedWeapon(ped, weapon)
+        if ammo ~= 0 and ammo - ammo == 0 then
+            AddAmmoToPed(ped, weapon, -ammo)
+            gunJammed = true
+            oldAmmoAmount = ammo
+            QBCore.Functions.Notify('Weapon is badly damaged and keeps jamming..', 'error', 5000)
+        end
+    end
+end
+
+function UnjamWeapon()
+	local ped = PlayerPedId()
+	local weapon = GetSelectedPedWeapon(ped)
+    local ammo = GetAmmoInPedWeapon(ped, weapon)
+    if ammo == 0 then
+        AddAmmoToPed(ped, weapon, oldAmmoAmount)
+        MakePedReload(ped)
+        gunJammed = false
+    end
+end
+
 -- Threads
 
 CreateThread(function()
@@ -145,6 +226,44 @@ CreateThread(function()
             if MultiplierAmount > 0 then
                 TriggerServerEvent("weapons:server:UpdateWeaponQuality", CurrentWeaponData, MultiplierAmount)
                 MultiplierAmount = 0
+            end
+        end
+        Wait(0)
+    end
+end)
+
+CreateThread(function()
+	while true do
+		Wait(0)
+		local ped = PlayerPedId()
+
+		if gunJammed then
+			jamText(Config.unjamText)
+            local weapon = GetSelectedPedWeapon(ped)
+            local ammo = GetAmmoInPedWeapon(ped, weapon)
+            if ammo ~= 0 then
+                AddAmmoToPed(ped, weapon, -ammo)
+            end
+		end
+
+		if IsPedArmed(ped, 4 | 2) then
+			if gunJammed then
+                if IsControlPressed(0, Config.unjamKey) or IsControlJustPressed(0, Config.unjamKey) then
+				    UnjamWeapon()
+                end
+			end			
+		end
+	end
+end)
+
+CreateThread(function()
+    while true do
+        local ped = PlayerPedId()
+        if IsPedArmed(ped, 4 | 2) then
+            if IsPedShooting(ped) or IsControlJustPressed(0, 24) then
+                if not gunJammed then
+                    JamWeapon()
+                end
             end
         end
         Wait(0)
@@ -377,42 +496,8 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent("weapon:startRepair", function(data)
-    if CurrentWeaponData and next(CurrentWeaponData) then
-        local WeaponData = QBCore.Shared.Weapons[GetHashKey(CurrentWeaponData.name)]
-        local WeaponClass = (QBCore.Shared.SplitStr(WeaponData.ammotype, "_")[2]):lower()
-        TriggerEvent('QBCore:Notify', Lang:t('info.repair_weapon_price', { value = Config.RepairPoints[data.id].repairCosts[WeaponClass].cost}), "primary", 1500)
-        QBCore.Functions.TriggerCallback('weapons:server:RepairWeapon', function(HasMoney)
-            if HasMoney then
-                TriggerEvent('QBCore:Notify', Lang:t('info.weapon_repair_started'), "success", 1500)
-                CurrentWeaponData = {}
-            else
-                TriggerEvent('QBCore:Notify', Lang:t('info.not_enough_cash'), "error", 1500)
-            end
-        end, data.id, CurrentWeaponData)
-    else
-        if Config.RepairPoints[data.id].RepairingData.CitizenId == nil then
-            TriggerEvent('QBCore:Notify', Lang:t('error.no_weapon_in_hand'), "error", 1500)
-        end
-    end
-end)
-
-RegisterNetEvent("weapon:completeRepair", function(data)
-    if CurrentWeaponData and next(CurrentWeaponData) then
-        if Config.RepairPoints[data.id].RepairingData.CitizenId ~= PlayerData.citizenid then
-            TriggerEvent('QBCore:Notify', Lang:t('info.repairshop_not_usable'), "error", 1500)
-        else
-            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_back'), "success", 1500)
-            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
-        end
-    else
-        if Config.RepairPoints[data.id].RepairingData.CitizenId == PlayerData.citizenid then
-            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_back'), "success", 1500)
-            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
-        end
-        if Config.RepairPoints[data.id].RepairingData.CitizenId == nil then
-            TriggerEvent('QBCore:Notify', Lang:t('info.take_weapon_nil'), "success", 1500)
-            TriggerServerEvent('weapons:server:TakeBackWeapon', data.id, data)
-        end
-    end
-end)
+jamText = function(msg)
+    BeginTextCommandDisplayHelp('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    EndTextCommandDisplayHelp(0, false, true, -1)
+end
