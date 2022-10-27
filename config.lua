@@ -2,6 +2,13 @@ Config = Config or {}
 
 Config.ReloadTime = math.random(4000, 6000)
 
+Config.unjamText = 'R - Unjam Weapon'
+Config.unjamKey = 45
+
+Config.maxDurabilityToJam = 40
+Config.minDurabilityToJam = 5
+Config.jamChance = 1
+
 Config.DurabilityBlockedWeapons = {
     "weapon_stungun",
     "weapon_nightstick",
