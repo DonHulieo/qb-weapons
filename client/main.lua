@@ -3,24 +3,6 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerData = QBCore.Functions.GetPlayerData()
 local CurrentWeaponData, CanShoot, gunJammed, MultiplierAmount, oldAmmoAmount = {}, true, false, 0, 0
 
-local validJobs = {
-    ["police"] = true,
-    ["lspd"] = true,
-    ["bsco"] = true,
-    ["sasp"] = true,
-    ["fbi"] = true,
-    ["iaa"] = true,
-}
-
-local validGangs = {
-    ["lostmc"] = true,
-    ["ballas"] = true,
-    ["vagos"] = true,
-    ["cartel"] = true,
-    ["families"] = true,
-    ["triads"] = true,
-}
-
 -- Handlers
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
@@ -41,28 +23,6 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 end)
 
 -- Events
-
-RegisterNetEvent('QBCore:Client:OnGangUpdate', function()
-    local PlayerData = QBCore.Functions.GetPlayerData()
-    local PlayerGang = PlayerData.gang
-    local ped = PlayerPedId()
-    if validGangs[PlayerGang.name] then
-        SetWeaponAnimationOverride(ped, `Gang1H`)
-    else
-        SetWeaponAnimationOverride(ped, `default`)
-    end
-end)
-
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
-    local PlayerData = QBCore.Functions.GetPlayerData()
-    local PlayerJob = PlayerData.job
-    local ped = PlayerPedId()
-    if validJobs[PlayerJob.name] then
-        SetWeaponAnimationOverride(ped, `FirstPersonMichaelAiming`)
-    else
-        SetWeaponAnimationOverride(ped, `default`)
-    end
-end)
 
 RegisterNetEvent("weapons:client:SyncRepairShops", function(NewData, key)
     Config.RepairPoints[key].IsRepairing = NewData.IsRepairing
@@ -336,25 +296,6 @@ CreateThread(function()
             end
         end
         Wait(0)
-    end
-end)
-
-CreateThread(function()
-    while true do
-        local sleep = 5000
-        local PlayerData = QBCore.Functions.GetPlayerData()
-        local PlayerJob = PlayerData.job
-        local PlayerGang = PlayerData.gang
-        local ped = PlayerPedId()
-        if LocalPlayer.state['isLoggedIn'] then
-            if validGangs[PlayerGang.name] then
-                SetWeaponAnimationOverride(ped, `Gang1H`)
-            end
-            if validJobs[PlayerJob.name] then
-                SetWeaponAnimationOverride(ped, `FirstPersonMichaelAiming`)
-            end
-        end
-        Wait(sleep)
     end
 end)
 
