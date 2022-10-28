@@ -153,7 +153,7 @@ end)
 
 -- Functions
 
-function JamWeapon()
+--[[function JamWeapon()
     local ped = PlayerPedId()
     local PlayerData = QBCore.Functions.GetPlayerData()
     local WeaponSlot = PlayerData.items[CurrentWeaponData.slot]
@@ -202,7 +202,7 @@ function UnjamWeapon()
         MakePedReload(ped)
         gunJammed = false
     end
-end
+end]]
 
 -- Threads
 
@@ -244,7 +244,7 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function()
+--[[CreateThread(function()
 	while true do
 		Wait(0)
 		local ped = PlayerPedId()
@@ -280,7 +280,7 @@ CreateThread(function()
         end
         Wait(0)
     end
-end)
+end)]]
 
 CreateThread(function()
     while true do
