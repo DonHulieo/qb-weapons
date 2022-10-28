@@ -8,11 +8,11 @@ Weapon Logic Script For QB-Core
 
 # Previews
 - [Gun Jamming](https://streamable.com/kses1d)
+**Gun jamming isn't currently functional and an update is being worked on**
 
 # Updates:
 
     # DonHulieo
-    - Weapons jam based on durability and chance.
     - Attachments now get damaged when weapon is shot.
     - Quality is constant, great for inventory systems with decay.
     - Weapons will stop working until the broken attachment is removed.
