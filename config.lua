@@ -2,14 +2,6 @@ Config = Config or {}
 
 Config.ReloadTime = math.random(4000, 6000)
 
-Config.unjamText = 'R - Unjam Weapon'
-Config.unjamKey = 45
-
-Config.maxDurabilityToJam = 40 -- Durability level weapon has to reach before it can jam
-Config.medDurabilityToJam = 25 -- Durability level weapon has to reach before chance to jam is halved
-Config.minDurabilityToJam = 5  -- Durability level weapon has to reach before every shot jams weapon
-Config.jamChance = 1           -- Chance out of 250 for max durability and out of 125 for med durability
-
 Config.DurabilityBlockedWeapons = {
     "weapon_stungun",
     "weapon_nightstick",
@@ -19,12 +11,12 @@ Config.DurabilityBlockedWeapons = {
 
 Config.DurabilityMultiplier = {
 	-- Melee
-	-- ['weapon_unarmed'] 				 = 0.15,
+	-- ['weapon_unarmed'] 			 = 0.15,
 	['weapon_dagger'] 				 = 0.15,
 	['weapon_bat'] 				 	 = 0.15,
 	['weapon_bottle'] 				 = 0.15,
 	['weapon_crowbar'] 				 = 0.15,
-	-- ['weapon_flashlight'] 			 = 0.15,
+	-- ['weapon_flashlight'] 		 = 0.15,
 	['weapon_golfclub'] 			 = 0.15,
 	['weapon_hammer'] 				 = 0.15,
 	['weapon_hatchet'] 				 = 0.15,
@@ -32,7 +24,7 @@ Config.DurabilityMultiplier = {
 	['weapon_knife'] 				 = 0.15,
 	['weapon_machete'] 				 = 0.15,
 	['weapon_switchblade'] 			 = 0.15,
-	-- ['weapon_nightstick'] 			 = 0.15,
+	-- ['weapon_nightstick'] 		 = 0.15,
 	['weapon_wrench'] 				 = 0.15,
 	['weapon_battleaxe'] 			 = 0.15,
 	['weapon_poolcue'] 				 = 0.15,
@@ -48,8 +40,8 @@ Config.DurabilityMultiplier = {
 	['weapon_pistol_mk2'] 			 = 0.15,
 	['weapon_combatpistol'] 		 = 0.15,
 	['weapon_appistol'] 			 = 0.15,
-	-- ['weapon_stungun'] 				 = 0.15,
-    -- ['weapon_stungun_mp'] 				 = 0.15,
+	-- ['weapon_stungun'] 			 = 0.15,
+    -- ['weapon_stungun_mp'] 		 = 0.15,
 	['weapon_pistol50'] 			 = 0.15,
 	['weapon_snspistol'] 			 = 0.15,
 	['weapon_heavypistol'] 			 = 0.15,
