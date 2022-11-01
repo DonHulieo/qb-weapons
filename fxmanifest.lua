@@ -1,8 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'Don\'s QB-Weapons'
-version '1.0.0'
+author 'DonHulieo'
+description 'Weapons logic script, with attachment and weapon durabilty, weapon repairs and gun damage control.'
+version '1.0.2'
 
 shared_scripts {
 	'@qb-core/shared/locale.lua',
