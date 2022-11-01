@@ -1,7 +1,7 @@
 -- Variables
 local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerData = QBCore.Functions.GetPlayerData()
-local CurrentWeaponData, CanShoot, gunJammed, MultiplierAmount, oldAmmoAmount = {}, true, false, 0, 0
+local CurrentWeaponData, CanShoot, MultiplierAmount, oldAmmoAmount = {}, true, 0, 0
 
 -- Handlers
 
@@ -151,59 +151,6 @@ RegisterNetEvent("weapon:completeRepair", function(data)
     end
 end)
 
--- Functions
-
---[[function JamWeapon()
-    local ped = PlayerPedId()
-    local PlayerData = QBCore.Functions.GetPlayerData()
-    local WeaponSlot = PlayerData.items[CurrentWeaponData.slot]
-    if WeaponSlot.info.quality <= Config.maxDurabilityToJam then
-        local jamChance = math.random(0, 250)
-        if jamChance <= Config.jamChance then
-            local weapon = GetSelectedPedWeapon(ped)
-            local ammo = GetAmmoInPedWeapon(ped, weapon)
-            if ammo ~= 0 and ammo - ammo == 0 then
-                AddAmmoToPed(ped, weapon, -ammo)
-                gunJammed = true
-                oldAmmoAmount = ammo
-                QBCore.Functions.Notify('You\'re weapon jammed..', 'error', 3500)
-            end
-        end
-    elseif WeaponSlot.info.quality <= Config.medDurabilityToJam then
-        local jamChance = math.random(0, 125)
-        if jamChance <= Config.jamChance then
-            local weapon = GetSelectedPedWeapon(ped)
-            local ammo = GetAmmoInPedWeapon(ped, weapon)
-            if ammo ~= 0 and ammo - ammo == 0 then
-                AddAmmoToPed(ped, weapon, -ammo)
-                gunJammed = true
-                oldAmmoAmount = ammo
-                QBCore.Functions.Notify('You\'re weapon jammed..', 'error', 3500)
-            end
-        end
-    elseif WeaponSlot.info.quality <= Config.minDurabilityToJam then
-        local weapon = GetSelectedPedWeapon(ped)
-        local ammo = GetAmmoInPedWeapon(ped, weapon)
-        if ammo ~= 0 and ammo - ammo == 0 then
-            AddAmmoToPed(ped, weapon, -ammo)
-            gunJammed = true
-            oldAmmoAmount = ammo
-            QBCore.Functions.Notify('Weapon is badly damaged and keeps jamming..', 'error', 5000)
-        end
-    end
-end
-
-function UnjamWeapon()
-	local ped = PlayerPedId()
-	local weapon = GetSelectedPedWeapon(ped)
-    local ammo = GetAmmoInPedWeapon(ped, weapon)
-    if ammo == 0 then
-        AddAmmoToPed(ped, weapon, oldAmmoAmount)
-        MakePedReload(ped)
-        gunJammed = false
-    end
-end]]
-
 -- Threads
 
 CreateThread(function()
@@ -243,44 +190,6 @@ CreateThread(function()
         Wait(0)
     end
 end)
-
---[[CreateThread(function()
-	while true do
-		Wait(0)
-		local ped = PlayerPedId()
-
-		if gunJammed then
-			jamText(Config.unjamText)
-            local weapon = GetSelectedPedWeapon(ped)
-            local ammo = GetAmmoInPedWeapon(ped, weapon)
-            if ammo ~= 0 then
-                AddAmmoToPed(ped, weapon, -ammo)
-            end
-		end
-
-		if IsPedArmed(ped, 4 | 2) then
-			if gunJammed then
-                if IsControlPressed(0, Config.unjamKey) or IsControlJustPressed(0, Config.unjamKey) then
-				    UnjamWeapon()
-                end
-			end			
-		end
-	end
-end)
-
-CreateThread(function()
-    while true do
-        local ped = PlayerPedId()
-        if IsPedArmed(ped, 4 | 2) then
-            if IsPedShooting(ped) or IsControlJustPressed(0, 24) then
-                if not gunJammed then
-                    JamWeapon()
-                end
-            end
-        end
-        Wait(0)
-    end
-end)]]
 
 CreateThread(function()
     while true do
