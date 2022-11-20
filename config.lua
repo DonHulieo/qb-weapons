@@ -2,6 +2,9 @@ Config = Config or {}
 
 Config.ReloadTime = math.random(4000, 6000)
 
+--Set this to true if you use an inventory that uses item decay
+Config.AttachmentDurability = false 
+
 Config.DurabilityBlockedWeapons = {
     "weapon_stungun",
     "weapon_nightstick",
