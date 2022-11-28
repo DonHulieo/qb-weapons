@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local globalTime = 0
 
--- Functions
+-------------------------------- FUNCTIONS --------------------------------
 
 local function IsWeaponBlocked(WeaponName)
     local retval = false
@@ -35,7 +35,7 @@ local function GetAttachmentType(attachments)
     return attype
 end
 
--- Callback
+-------------------------------- CALLBACKS --------------------------------
 
 QBCore.Functions.CreateCallback("weapons:server:GetConfig", function(_, cb)
     cb(Config.RepairPoints)
@@ -174,7 +174,7 @@ QBCore.Functions.CreateCallback('prison:server:checkThrowable', function(source,
     cb(true)
 end)
 
--- Events
+-------------------------------- EVENTS --------------------------------
 
 RegisterServerEvent("weapon:repairTime", function()
     local src = source
@@ -366,13 +366,13 @@ RegisterNetEvent('weapons:server:removeWeaponAmmoItem', function(item)
     Player.Functions.RemoveItem(item.name, 1, item.slot)
 end)
 
--- Commands
+-------------------------------- COMMANDS --------------------------------
 
 QBCore.Commands.Add("repairweapon", "Repair Weapon (God Only)", {{name="hp", help=Lang:t('info.hp_of_weapon')}}, true, function(source, args)
     TriggerClientEvent('weapons:client:SetWeaponQuality', source, tonumber(args[1]))
 end, "god")
 
--- Items
+-------------------------------- ITEMS --------------------------------
 
 -- AMMO
 QBCore.Functions.CreateUseableItem('pistol_ammo', function(source, item)
