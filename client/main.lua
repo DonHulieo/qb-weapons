@@ -3,7 +3,31 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerData = QBCore.Functions.GetPlayerData()
 local CurrentWeaponData, CanShoot, MultiplierAmount, oldAmmoAmount = {}, true, 0, 0
 
--- Handlers
+-------------------------------- FUNCTIONS --------------------------------
+
+local function jamText()
+    BeginTextCommandDisplayHelp("STRING")
+    AddTextComponentSubstringPlayerName("~INPUT_RELOAD~ to clear jam")
+    EndTextCommandDisplayHelp(0, 0, 1, -1)
+end
+
+local jammed = false
+local function listen4Unjam(ped, weapon, ammo)
+    jammed = true
+    Citizen.CreateThread(function()
+        while jammed do
+            Citizen.Wait(3)
+            jamText()
+            if (IsControlJustReleased(0, 45) or IsDisabledControlJustReleased(0, 45)) then
+                SetPedAmmo(ped, weapon, ammo)
+                MakePedReload(ped)
+                jammed = false
+            end
+        end
+    end)
+end
+
+-------------------------------- HANDLERS --------------------------------
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
@@ -22,7 +46,31 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     end
 end)
 
--- Events
+---Event that is triggered for gunshots.
+---@param witnesses table  array of peds that witnessed the shots
+---@param ped number  the ped that shot the gun
+AddEventHandler("CEventGunShot", function(witnesses, ped)
+    -- The ped that shot the gun must be the player.
+    if PlayerPedId() ~= ped then return end
+    -- This event can be triggered multiple times for a single gunshot,
+    -- so ignore if the first ped in witnesses is not the player ped.
+    -- (it's always first in the array and shows up only on the first event for the gunshot)
+    if witnesses[1] ~= ped then return end
+    local weapon = GetSelectedPedWeapon(ped)
+    local ammo = GetAmmoInPedWeapon(ped, weapon)
+    TriggerServerEvent("weapons:server:UpdateWeaponAmmo", CurrentWeaponData, tonumber(ammo))
+    local _, clipAmmo = GetAmmoInClip(ped, weapon)
+    local chance = Config.JamChance
+    if math.random(1, chance) == 1 and clipAmmo > 0 then
+        SetPedAmmo(ped, weapon, 0)
+        listen4Unjam(ped, weapon, ammo)
+    end
+    if MultiplierAmount <= 0 then return end
+    TriggerServerEvent("weapons:server:UpdateWeaponQuality", CurrentWeaponData, MultiplierAmount)
+    MultiplierAmount = 0
+end)
+
+-------------------------------- EVENTS --------------------------------
 
 RegisterNetEvent("weapons:client:SyncRepairShops", function(NewData, key)
     Config.RepairPoints[key].IsRepairing = NewData.IsRepairing
@@ -151,7 +199,7 @@ RegisterNetEvent("weapon:completeRepair", function(data)
     end
 end)
 
--- Threads
+-------------------------------- THREADS --------------------------------
 
 CreateThread(function()
     SetWeaponsNoAutoswap(true)
@@ -172,22 +220,6 @@ CreateThread(function()
         else
             Wait(500)
         end
-    end
-end)
-
-CreateThread(function()
-    while true do
-        local ped = PlayerPedId()
-        if IsPedArmed(ped, 7) == 1 and (IsControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 24)) then
-            local weapon = GetSelectedPedWeapon(ped)
-            local ammo = GetAmmoInPedWeapon(ped, weapon)
-            TriggerServerEvent("weapons:server:UpdateWeaponAmmo", CurrentWeaponData, tonumber(ammo))
-            if MultiplierAmount > 0 then
-                TriggerServerEvent("weapons:server:UpdateWeaponQuality", CurrentWeaponData, MultiplierAmount)
-                MultiplierAmount = 0
-            end
-        end
-        Wait(0)
     end
 end)
 
@@ -416,9 +448,3 @@ CreateThread(function()
         })
     end
 end)
-
-jamText = function(msg)
-    BeginTextCommandDisplayHelp('STRING')
-    AddTextComponentSubstringPlayerName(msg)
-    EndTextCommandDisplayHelp(0, false, true, -1)
-end
