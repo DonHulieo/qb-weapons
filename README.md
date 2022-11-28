@@ -9,6 +9,7 @@ Weapon Logic Script For QB-Core
 # Updates:
 
     # DonHulieo
+    - Weapon Jamming, Base Configured for 0.1% chance of Jamming per Bullet Fired.
     - Attachments now get damaged when weapon is shot.
     - Quality is constant, great for inventory systems with decay.
     - Weapons will stop working until the broken attachment is removed.

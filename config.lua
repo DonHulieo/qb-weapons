@@ -2,6 +2,7 @@ Config = Config or {}
 
 Config.ReloadTime = math.random(4000, 6000)
 
+Config.JamChance = 1000 -- 1/1000 chance of jamming per bullet fired
 --Set this to true if you use an inventory that uses item decay
 Config.AttachmentDurability = false 
 
