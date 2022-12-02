@@ -21,6 +21,7 @@ local function listen4Unjam(ped, weapon, ammo)
             if (IsControlJustReleased(0, 45) or IsDisabledControlJustReleased(0, 45)) then
                 SetPedAmmo(ped, weapon, ammo)
                 MakePedReload(ped)
+                TriggerServerEvent("weapons:server:UpdateWeaponAmmo", CurrentWeaponData, tonumber(ammo))
                 jammed = false
             end
         end
