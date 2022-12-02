@@ -226,7 +226,7 @@ RegisterNetEvent('weapons:server:UpdateWeaponQuality', function(data, RepeatAmou
                     if WeaponSlot.info.quality - DecreaseAmount > 0 then
                         WeaponSlot.info.quality = WeaponSlot.info.quality - DecreaseAmount
                         if Config.AttachmentDurability then
-                            if WeaponSlot.info.attachments then
+                            if WeaponSlot.info.attachments and next(WeaponSlot.info.attachments) then
                                 for k, v in pairs(WeaponSlot.info.attachments) do
                                     local DecreaseAttach = Config.DurabilityMultiplier[v.item]
                                     if v.quality then
@@ -263,7 +263,7 @@ RegisterNetEvent('weapons:server:UpdateWeaponQuality', function(data, RepeatAmou
                     if WeaponSlot.info.quality - DecreaseAmount > 0 then
                         WeaponSlot.info.quality = WeaponSlot.info.quality - DecreaseAmount
                         if Config.AttachmentDurability then
-                            if WeaponSlot.info.attachments then
+                            if WeaponSlot.info.attachments and next(WeaponSlot.info.attachments) then
                                 for k, v in pairs(WeaponSlot.info.attachments) do
                                     if not v.quality then
                                         v.quality = 100
