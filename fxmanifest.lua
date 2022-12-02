@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'DonHulieo'
 description 'Weapons logic script, with attachment and weapon durabilty, weapon repairs and gun damage control.'
-version '1.0.4'
+version '1.0.5'
 
 shared_scripts {
 	'@qb-core/shared/locale.lua',
