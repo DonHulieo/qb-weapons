@@ -228,23 +228,26 @@ RegisterNetEvent('weapons:server:UpdateWeaponQuality', function(data, RepeatAmou
                         if Config.AttachmentDurability then
                             if WeaponSlot.info.attachments and next(WeaponSlot.info.attachments) then
                                 for k, v in pairs(WeaponSlot.info.attachments) do
-                                    local DecreaseAttach = Config.DurabilityMultiplier[v.item]
-                                    if v.quality then
-                                        if v.quality - DecreaseAttach > 0 then
-                                            v.quality = v.quality - DecreaseAttach
+                                    local HasAttach = HasAttachment(v.component, WeaponSlot.info.attachments)
+                                    if HasAttach then
+                                        local DecreaseAttach = Config.DurabilityMultiplier[v.item]
+                                        if v.quality then
+                                            if v.quality - DecreaseAttach > 0 then
+                                                v.quality = v.quality - DecreaseAttach
+                                            else
+                                                v.quality = 0
+                                                TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
+                                                TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            end
                                         else
-                                            v.quality = 0
-                                            TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
-                                            TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
-                                        end
-                                    else
-                                        v.quality = 100
-                                        if v.quality - DecreaseAttach > 0 then
-                                            v.quality = v.quality - DecreaseAttach
-                                        else
-                                            v.quality = 0
-                                            TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
-                                            TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            v.quality = 100
+                                            if v.quality - DecreaseAttach > 0 then
+                                                v.quality = v.quality - DecreaseAttach
+                                            else
+                                                v.quality = 0
+                                                TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
+                                                TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            end
                                         end
                                     end
                                 end
@@ -265,24 +268,26 @@ RegisterNetEvent('weapons:server:UpdateWeaponQuality', function(data, RepeatAmou
                         if Config.AttachmentDurability then
                             if WeaponSlot.info.attachments and next(WeaponSlot.info.attachments) then
                                 for k, v in pairs(WeaponSlot.info.attachments) do
-                                    if not v.quality then
-                                        v.quality = 100
-                                        local DecreaseAttach = Config.DurabilityMultiplier[v.item]
-                                        if v.quality - DecreaseAttach > 0 then
-                                            v.quality = v.quality - DecreaseAttach
+                                    local HasAttach = HasAttachment(v.component, WeaponSlot.info.attachments)
+                                    if HasAttach then
+                                    local DecreaseAttach = Config.DurabilityMultiplier[v.item]
+                                        if not v.quality then
+                                            v.quality = 100
+                                            if v.quality - DecreaseAttach > 0 then
+                                                v.quality = v.quality - DecreaseAttach
+                                            else
+                                                v.quality = 0
+                                                TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
+                                                TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            end
                                         else
-                                            v.quality = 0
-                                            TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
-                                            TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
-                                        end
-                                    else
-                                        local DecreaseAttach = Config.DurabilityMultiplier[v.item]
-                                        if v.quality - DecreaseAttach > 0 then
-                                            v.quality = v.quality - DecreaseAttach
-                                        else
-                                            v.quality = 0
-                                            TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
-                                            TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            if v.quality - DecreaseAttach > 0 then
+                                                v.quality = v.quality - DecreaseAttach
+                                            else
+                                                v.quality = 0
+                                                TriggerClientEvent('inventory:client:UseWeapon', src, data, false)
+                                                TriggerClientEvent("QBCore:Notify", src, Lang:t('error.attachment_broken' , { value = QBCore.Shared.Items[v.item].label }), "error", 3500)
+                                            end
                                         end
                                     end
                                 end
